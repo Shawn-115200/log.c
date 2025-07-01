@@ -19,8 +19,8 @@
 #define MAX_LOG_FILES  10
 
 // 在写入前检查当前文件大小，如果写入后会超过 MAX_LOG_SIZE，就应该先轮转，然后再写入新文件。
-//#define MAX_LOG_SIZE (10 * 1024 * 1024)  // 10MB
-#define MAX_LOG_SIZE (256)  // 256Byte
+#define MAX_LOG_SIZE (10 * 1024 * 1024)  // 10MB
+//#define MAX_LOG_SIZE (1 * 1024) // 1 KByte
 
 
 typedef struct {

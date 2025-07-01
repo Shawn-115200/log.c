@@ -40,22 +40,41 @@ static struct {
 	Callback callbacks[MAX_CALLBACKS];
 } L;
 
+#define ANSI_COLOR_RESET     "\x1b[0m"
+#define ANSI_COLOR_TRACE     "\x1b[94m"  // 亮蓝色
+#define ANSI_COLOR_DEBUG     "\x1b[36m"  // 青色
+#define ANSI_COLOR_INFO      "\x1b[32m"  // green
+#define ANSI_COLOR_WARN      "\x1b[33m"  // yellow
+#define ANSI_COLOR_ERROR     "\x1b[31m"  // red
+#define ANSI_COLOR_FATAL     "\x1b[35m"  // 品红色
 
-static const char *level_strings[] = {
-	"TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
-};
-
-#ifdef LOG_USE_COLOR
+#ifdef STDOUT_LOG_USE_COLOR
 static const char *level_colors[] = {
-	"\x1b[94m", "\x1b[36m", "\x1b[32m", "\x1b[33m", "\x1b[31m", "\x1b[35m"
+	ANSI_COLOR_TRACE,
+	ANSI_COLOR_DEBUG,
+	ANSI_COLOR_INFO,
+	ANSI_COLOR_WARN,
+	ANSI_COLOR_ERROR,
+	ANSI_COLOR_FATAL
 };
 #endif
+
+static const char *level_strings[] = {
+	"TRACE",
+	"DEBUG",
+	"INFO",
+	"WARN",
+	"ERROR",
+	"FATAL"
+};
 
 
 // 提取文件名，只保留最后一个部分
 static const char* get_short_filename(const char* full_path)
 {
-	if (!full_path) return "unknown";
+	if (!full_path) {
+		return "unknown";
+	}
 
 	const char* last_slash = strrchr(full_path, '/');
 	if (last_slash) {
@@ -69,7 +88,7 @@ static void stdout_callback(log_Event *ev)
 {
 	char buf[16];
 	buf[strftime(buf, sizeof(buf), "%H:%M:%S", ev->time)] = '\0';
-#ifdef LOG_USE_COLOR
+#ifdef STDOUT_LOG_USE_COLOR
 	fprintf(
 		ev->udata, "%s %s%-5s\x1b[0m \x1b[90m%s:%d:\x1b[0m ",
 		buf, level_colors[ev->level], level_strings[ev->level],

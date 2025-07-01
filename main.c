@@ -1,4 +1,4 @@
-//  gcc main.c   src/log.c  -I./src -lpthread  -g  -DLOG_USE_COLOR
+//  gcc main.c   src/log.c  -I./src -lpthread  -g  -DSTDOUT_LOG_USE_COLOR
 
 #include <stdio.h>
 #include <unistd.h>
@@ -114,11 +114,6 @@ int main()
 		return -1;
 	}
 
-	// 日志输出示例
-	log_debug("debug\n");
-	log_info("info\n");
-	log_warn("warn\n");
-
 	// 线程安全日志输出
 	log_info("I'm threadsafe\n");
 
@@ -138,6 +133,14 @@ int main()
 
 	// 等待回车键或信号
 	while (thread_running) {
+		// 日志输出示例
+		log_trace("trace 111.\n");
+		log_debug("debug 222.\n");
+		log_info("info 333.\n");
+		log_warn("warn 444.\n");
+		log_error("error 555.\n");
+		log_fatal("fatal 666.\n\n\n");
+
 		sleep(1);
 	}
 

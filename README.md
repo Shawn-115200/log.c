@@ -73,8 +73,8 @@ The function is passed the boolean `true` if the lock should be acquired or
 Returns the name of the given log level as a string.
 
 
-#### LOG_USE_COLOR
-If the library is compiled with `-DLOG_USE_COLOR` ANSI color escape codes will
+#### STDOUT_LOG_USE_COLOR
+If the library is compiled with `-DSTDOUT_LOG_USE_COLOR` ANSI color escape codes will
 be used when printing.
 
 
